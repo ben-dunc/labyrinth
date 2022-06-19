@@ -2,7 +2,6 @@
 //MazeController.java
 
 import java.awt.event.*;
-import java.awt.*; 
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -11,7 +10,6 @@ public class MazeController extends JLayeredPane implements ActionListener {
 	private Player player;
 	private int difficulty; // easy = 1, normal = 2, hard = 3
 	private ArrayList<Enemy> enemies;
-	private Timer timer;
 	
 	private PaintLayer MazeLayer;
 	// private PaintLayer EnemyLayer;

@@ -2,15 +2,6 @@
 //GameWindow.java
 
 import java.awt.event.*;
-
-import javax.imageio.ImageIO;
-import java.awt.Image;
- 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
 
 public class GameWindow extends JFrame implements ActionListener {

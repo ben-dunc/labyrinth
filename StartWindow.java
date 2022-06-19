@@ -5,30 +5,24 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-// import mazeGenerator.castleFrames;
 
 public class StartWindow extends JFrame {
 	
 	private int diff = 1;
 	private int size = 10;
-	private boolean close; 
 	
-	private JComboBox diffOption;
+	private JComboBox<String>diffOption;
 	private JTextComponent sizeOption;
 	
 	private JButton begin;
 	
 	private JPanel mainPanel;
 	private JPanel optionPanel;
-	private JPanel picPanel;
 	private JPanel buttonPanel;
 
 	private JGif mainGif;
 	
 	public StartWindow() {	
-		close = false;
-		
 		// set gif
 		mainGif = new JGif(6);
 		for(int i = 0; i < 40; i++) {
@@ -40,7 +34,7 @@ public class StartWindow extends JFrame {
 		}
 		
 		//difficulty selector
-		diffOption = new JComboBox();
+		diffOption = new JComboBox<String>();
 		diffOption.addItem("Easy");
 		diffOption.addItem("Medium");
 		diffOption.addItem("Hard");

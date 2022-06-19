@@ -2,7 +2,6 @@
 // Maze.java
  
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Maze implements Drawable {
@@ -11,7 +10,6 @@ public class Maze implements Drawable {
 	private static int difficulty;
 	private ArrayList<Cell> posExits;
 	private ArrayList<Enemy> enemies;
-	private Graphics graphics;
 
 	public Maze(int size, int d) {		
 	

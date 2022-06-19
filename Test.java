@@ -3,6 +3,6 @@
 
 public class Test {
 	public static void main(String [] args) {
-		mazeApp hi = new mazeApp();
+		// mazeApp hi = new mazeApp();
 	}
 }

@@ -2,13 +2,8 @@
 //Player.java
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import javax.imageio.*;
-import javax.swing.*;
-
-import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 

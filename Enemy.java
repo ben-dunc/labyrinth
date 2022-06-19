@@ -5,10 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
 
-import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -17,15 +15,12 @@ public class Enemy implements ActionListener, Drawable, ImageObserver {
 	private int hp;
 	private int attack;
 	private int x, y;
-	private int speed;
 	private Timer timer;
 	private int prevDir;
 	private int size;
 	private int cell_size;
 	private Cell[][] maze;
 	private static BufferedImage EnemyPic;
-		
-	private static int enemy_count = 0;
 	
 	public Enemy(int x, int y, int cellSize, Cell[][] m) {
 		try {
@@ -34,7 +29,6 @@ public class Enemy implements ActionListener, Drawable, ImageObserver {
 			System.out.println("assets/Entities/MazeEnemy.png Read error");
 		}
 	
-		enemy_count++;
 		size = cellSize / 3 + 1;
 		cell_size = cellSize;
 		timer = new Timer((int) (Math.random() * 300 + 850), this);
@@ -50,7 +44,7 @@ public class Enemy implements ActionListener, Drawable, ImageObserver {
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		
-		double lRatio = maze[y][x].getLightRatio();
+		// double lRatio = maze[y][x].getLightRatio();
 		
 		if(g2 != null) {			
 			g2.drawImage(EnemyPic, x * cell_size + size, y * cell_size + size, size, size, this);

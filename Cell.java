@@ -2,21 +2,14 @@
 //Cell.java
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import javax.imageio.*;
-import javax.swing.*;
 
-import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.awt.Image;
 
 public class Cell implements Drawable, ImageObserver{
 	private boolean isExit;
-	private boolean found;
-	private boolean player_occupied;
-	private boolean monster_occupied;
 	private int x, y;
 	private boolean[] halls;
 	private double lRatio;

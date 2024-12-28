@@ -1,12 +1,13 @@
-//Benjamin Duncan
-//StartWindow.java
+// Benjamin Duncan
+// MainMenuScene.java
 
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import javax.swing.Timer;
 import java.awt.event.*;
 
-public class StartWindow extends JFrame {
+public class MainMenuScene extends Scene {
 	
 	private int diff = 1;
 	private int size = 10;
@@ -22,9 +23,11 @@ public class StartWindow extends JFrame {
 
 	private JGif mainGif;
 	
-	public StartWindow() {	
+	public MainMenuScene(SceneManager sceneManager) {	
+		super(sceneManager);
+		
 		// set gif
-		mainGif = new JGif(6);
+		mainGif = new JGif();
 		for(int i = 0; i < 40; i++) {
 			String picName = "assets/Castle/castle_";
 			if(i < 10)
@@ -33,25 +36,26 @@ public class StartWindow extends JFrame {
 			mainGif.addFrame(picName);
 		}
 		
-		//difficulty selector
+		// difficulty selector
 		diffOption = new JComboBox<String>();
 		diffOption.addItem("Easy");
 		diffOption.addItem("Medium");
 		diffOption.addItem("Hard");
 			
-		//set up myGL
+		// set up myGL
 		GridLayout myGL = new GridLayout(1,4);
 		myGL.setHgap(10);
 				
-		//set up buttonPanel
+		// set up buttonPanel
 		buttonPanel = new JPanel(myGL);
 		begin = new JButton("Begin");
 		begin.setPreferredSize(new Dimension(30, 30));
 		buttonPanel.add(new JLabel(""));
 		buttonPanel.add(begin);
 		buttonPanel.add(new JLabel(""));
+		begin.addActionListener(new beginListener());
 		
-		//set up optionPanel
+		// set up optionPanel
 		sizeOption = new JTextField(Integer.toString(size));
 		
 		optionPanel = new JPanel(myGL);
@@ -60,38 +64,32 @@ public class StartWindow extends JFrame {
 		optionPanel.add(diffOption);
 		optionPanel.add(new JLabel(""));
 		
-		//set up mainPanel
+		// test
+		JLabel l1 = new JLabel("HELLO L1");
+		l1.setSize(100, 100);
+		JLabel l2 = new JLabel("HELLO L2");
+		l2.setSize(100, 100);
+		JLabel l3 = new JLabel("HELLO L3");
+		l3.setSize(100, 100);
+		
+		// set up mainPanel
 		mainPanel = new JPanel(new BorderLayout());
+		mainPanel.setSize(500, 500);
 		mainPanel.add(mainGif, BorderLayout.NORTH);
 		mainPanel.add(optionPanel, BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
-		this.add(mainPanel);
-		
-		setTitle("The Maze Game");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(250, 250);
-		setVisible(true);
-		setDefaultLookAndFeelDecorated(false);
-		setBackground(new Color(10, 89, 160));
-				
-		diffOption.addActionListener(new beginListener());
-				
-		this.setSize(400,500);
+		super.add(mainPanel, JLayeredPane.DEFAULT_LAYER);
 	}
 	
-	public JButton getBeginBtn() {
-		return begin;
-	}
-	
-	public boolean close() {
-		return true;
-	}
-	public int getDiff() {
-		return diff;
-	}
-	public int getMazeSize() {
-		return size;
+	public boolean close() { return true; }
+	public int getDiff() { return diff; }
+	public int getMazeSize() { return size; }
+
+	public void tick(int tickRate) {
+		super.repaint();
+		if (mainGif != null)
+			mainGif.tick(tickRate);
 	}
 
 	private class beginListener implements ActionListener {
@@ -99,7 +97,7 @@ public class StartWindow extends JFrame {
 			String op;
 			try {
 				size = Integer.parseInt(sizeOption.getText());
-				if(diffOption.getSelectedItem() instanceof String) {
+				if (diffOption.getSelectedItem() instanceof String) {
 					op = (String) diffOption.getSelectedItem();
 				
 					if (op.equals("Easy"))
@@ -109,8 +107,10 @@ public class StartWindow extends JFrame {
 					else if (op.equals("Hard"))
 						diff = 3;
 				}
-			} catch(Exception ea) {
-				
+
+				sceneManager.LoadScene(new MainMenuScene(sceneManager));
+			} catch (Exception ea) {
+				System.out.println("ERROR 23: " + ea);
 			}
 		}
 	}

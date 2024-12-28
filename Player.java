@@ -1,5 +1,5 @@
-//Benjamin Duncan 
-//Player.java
+// Benjamin Duncan  
+// Player.java
 
 import java.awt.*;
 import java.awt.image.*;

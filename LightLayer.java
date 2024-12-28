@@ -52,9 +52,6 @@ public class LightLayer implements Drawable {
 				light[a][i] = initialLightLevel;
 			}
 		}
-		
-		System.out.println("lightThreshold: " + lightThreshold);
-		System.out.println("initialLightLevel: " + initialLightLevel);
 	}
 	
 	public void draw(Graphics g) {

@@ -1,32 +1,46 @@
-//Benjamin Duncan
-//mazeApp.java
+// Benjamin Duncan
+// MazeApp.java
 
 import javax.swing.JButton;
 import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
-public class mazeApp {
-	private StartWindow startwindow;
+public class MazeApp extends JFrame implements ActionListener, Scene.SceneManager {
+
+	private int tickRate = 50;
+	private Timer tickTimer = new Timer(tickRate, this);
+	
+	private MainMenuScene mainMenu;
 	
 	public static void main(String [] args) {		
-		new mazeApp();
+		new MazeApp();
 	}
 	
-	public mazeApp() {
-		startwindow = new StartWindow();
-				
-		JButton beginBtn = startwindow.getBeginBtn();
+	public MazeApp() {
+		// init frame
+		super("Labrynth, by Ben Duncan");
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super.setMinimumSize(new Dimension(500, 500 + 28));
+		super.setVisible(true);
+		super.setBackground(Color.black);
 		
-		beginBtn.addActionListener(new beginListener());
+		// init main menu
+		mainMenu = new MainMenuScene(this);
+
+		super.add(mainMenu);
+
+		// tick!
+		tickTimer.start();
 	}
-		
-	private class beginListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (startwindow.close()) {
-				new GameWindow(startwindow.getDiff(), startwindow.getMazeSize());
-				startwindow.dispose();
-			}
-		}
+	
+	// tick!
+	public void actionPerformed(ActionEvent e) {
+		if (mainMenu != null)
+			mainMenu.tick(tickRate);
+	}
+
+	public void LoadScene(Scene scene) {
+		System.out.println("OUT!");
 	}
 }
-
-

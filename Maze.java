@@ -23,7 +23,7 @@ public class Maze implements Drawable {
 		// create all cells 
 		for(int i = 0; i < size; i++) 
 			for(int a = 0; a < size; a++) 
-				maze[i][a] = new Cell(a * cell_size, i * cell_size, cell_size, difficulty); //x, y, cell size
+				maze[i][a] = new Cell(a * cell_size, i * cell_size, cell_size, difficulty); // x, y, cell size
 				
 		// call maze recursion function
 		mazeMaker();
@@ -38,7 +38,7 @@ public class Maze implements Drawable {
 	}
 		
 	public void draw(Graphics g) {
-		//draw cells
+		// draw cells
 		for(int i = 0; i < maze.length; i++) {
 			for(int a = 0; a < maze.length; a++) {
 				maze[i][a].draw(g);	
@@ -68,22 +68,22 @@ public class Maze implements Drawable {
 	public void mazeMaker(int x, int y, int prevWall, int distance) {
 		Cell temp = maze[y][x];
 
-		//destroy wall leading from previous cell if prevWall != -1
+		// destroy wall leading from previous cell if prevWall != -1
 		if(prevWall != -1) {
-			if(prevWall == 0) //if prevWall = 0 (north) then create a south hall
+			if(prevWall == 0) // if prevWall = 0 (north) then create a south hall
 				temp.createHall(2);
 			
-			if(prevWall == 1) //if prevWall = 1 (east) then create a west hall
+			if(prevWall == 1) // if prevWall = 1 (east) then create a west hall
 				temp.createHall(3);
 			
-			if(prevWall == 2) //if prevWall = 2 (south) then create a north hall
+			if(prevWall == 2) // if prevWall = 2 (south) then create a north hall
 				temp.createHall(0);
 			
-			if(prevWall == 3) //if prevWall = 3 (west) then create a east hall
+			if(prevWall == 3) // if prevWall = 3 (west) then create a east hall
 				temp.createHall(1);
 		}
 	
-		//other such stuff
+		// other such stuff
 		boolean aLonely = true;
 	
 		while(aLonely) {
@@ -91,34 +91,34 @@ public class Maze implements Drawable {
 			int r = (int) (Math.random() * 4);
 			aLonely = false;
 		
-			if(r == 0 && y > 0 && !maze[y - 1][x].isConnected()) { //check northern cell
+			if(r == 0 && y > 0 && !maze[y - 1][x].isConnected()) { // check northern cell
 				temp.createHall(0);
 				mazeMaker(x, y - 1, 0, distance + 1);
 			}
 				
-			else if(r == 1 && x < maze.length - 1 && !maze[y][x + 1].isConnected()) { //check eastern cell
+			else if(r == 1 && x < maze.length - 1 && !maze[y][x + 1].isConnected()) { // check eastern cell
 				temp.createHall(1);
 				mazeMaker(x + 1, y, 1, distance + 1);
 			}
 				
-			else if(r == 2 && y < maze.length - 1 && !maze[y + 1][x].isConnected()) { //check southern cell
+			else if(r == 2 && y < maze.length - 1 && !maze[y + 1][x].isConnected()) { // check southern cell
 				temp.createHall(2);
 				mazeMaker(x, y + 1, 2, distance + 1);
 			}
 				
-			else if(r == 3 && x > 0 && !maze[y][x - 1].isConnected()) { //check western cell
+			else if(r == 3 && x > 0 && !maze[y][x - 1].isConnected()) { // check western cell
 				temp.createHall(3);
 				mazeMaker(x - 1, y, 3, distance + 1);
 			}
 			
-			//check for lonely cells
-			if(y > 0 && !maze[y - 1][x].isConnected()) //check northern cell
+			// check for lonely cells
+			if(y > 0 && !maze[y - 1][x].isConnected()) // check northern cell
 				aLonely = true;
-			else if(x < maze.length - 1 && !maze[y][x + 1].isConnected()) //check eastern cell
+			else if(x < maze.length - 1 && !maze[y][x + 1].isConnected()) // check eastern cell
 				aLonely = true;
-			else if(y < maze.length - 1 && !maze[y + 1][x].isConnected()) //check southern cell
+			else if(y < maze.length - 1 && !maze[y + 1][x].isConnected()) // check southern cell
 				aLonely = true;
-			else if(x > 0 && !maze[y][x - 1].isConnected()) //check western cell
+			else if(x > 0 && !maze[y][x - 1].isConnected()) // check western cell
 				aLonely = true;
 		}
 		

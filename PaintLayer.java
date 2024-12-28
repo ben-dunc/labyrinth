@@ -1,5 +1,5 @@
-//Benjamin Duncan
-//PaintLayer.java
+// Benjamin Duncan
+// PaintLayer.java
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ public class PaintLayer extends JComponent {
 	
 	public PaintLayer(int size) {
 		list = new ArrayList<Drawable>();
-		setSize(size, size); // It is manditory for setSize to be called. Else paintComponent won't ever be called.
+		super.setSize(size, size); // It is manditory for setSize to be called. Else paintComponent won't ever be called.
 	}
 	
 	public void addDrawable(Drawable d) {
@@ -18,7 +18,7 @@ public class PaintLayer extends JComponent {
 	}
 	
 	public void paint() {
-		repaint();
+		super.repaint();
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -8,44 +8,44 @@ import javax.swing.Timer;
 import java.awt.event.*;
 
 public class MainMenuScene extends Scene {
-	
+
 	private int diff = 1;
 	private int size = 10;
-	
-	private JComboBox<String>diffOption;
+
+	private JComboBox<String> diffOption;
 	private JTextComponent sizeOption;
-	
+
 	private JButton begin;
-	
+
 	private JPanel mainPanel;
 	private JPanel optionPanel;
 	private JPanel buttonPanel;
 
 	private JGif mainGif;
-	
-	public MainMenuScene(SceneManager sceneManager) {	
+
+	public MainMenuScene(SceneManager sceneManager) {
 		super(sceneManager);
-		
+
 		// set gif
 		mainGif = new JGif();
-		for(int i = 0; i < 40; i++) {
+		for (int i = 0; i < 40; i++) {
 			String picName = "assets/Castle/castle_";
-			if(i < 10)
+			if (i < 10)
 				picName += "0";
 			picName += i + ".png";
 			mainGif.addFrame(picName);
 		}
-		
+
 		// difficulty selector
 		diffOption = new JComboBox<String>();
 		diffOption.addItem("Easy");
 		diffOption.addItem("Medium");
 		diffOption.addItem("Hard");
-			
+
 		// set up myGL
-		GridLayout myGL = new GridLayout(1,4);
+		GridLayout myGL = new GridLayout(1, 4);
 		myGL.setHgap(10);
-				
+
 		// set up buttonPanel
 		buttonPanel = new JPanel(myGL);
 		begin = new JButton("Begin");
@@ -54,16 +54,16 @@ public class MainMenuScene extends Scene {
 		buttonPanel.add(begin);
 		buttonPanel.add(new JLabel(""));
 		begin.addActionListener(new beginListener());
-		
+
 		// set up optionPanel
 		sizeOption = new JTextField(Integer.toString(size));
-		
+
 		optionPanel = new JPanel(myGL);
 		optionPanel.add(new JLabel(""));
 		optionPanel.add(sizeOption);
 		optionPanel.add(diffOption);
 		optionPanel.add(new JLabel(""));
-		
+
 		// test
 		JLabel l1 = new JLabel("HELLO L1");
 		l1.setSize(100, 100);
@@ -71,20 +71,28 @@ public class MainMenuScene extends Scene {
 		l2.setSize(100, 100);
 		JLabel l3 = new JLabel("HELLO L3");
 		l3.setSize(100, 100);
-		
+
 		// set up mainPanel
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setSize(500, 500);
 		mainPanel.add(mainGif, BorderLayout.NORTH);
 		mainPanel.add(optionPanel, BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		super.add(mainPanel, JLayeredPane.DEFAULT_LAYER);
 	}
-	
-	public boolean close() { return true; }
-	public int getDiff() { return diff; }
-	public int getMazeSize() { return size; }
+
+	public boolean close() {
+		return true;
+	}
+
+	public int getDiff() {
+		return diff;
+	}
+
+	public int getMazeSize() {
+		return size;
+	}
 
 	public void tick(int tickRate) {
 		super.repaint();
@@ -99,7 +107,7 @@ public class MainMenuScene extends Scene {
 				size = Integer.parseInt(sizeOption.getText());
 				if (diffOption.getSelectedItem() instanceof String) {
 					op = (String) diffOption.getSelectedItem();
-				
+
 					if (op.equals("Easy"))
 						diff = 1;
 					else if (op.equals("Medium"))
@@ -115,4 +123,3 @@ public class MainMenuScene extends Scene {
 		}
 	}
 }
-		

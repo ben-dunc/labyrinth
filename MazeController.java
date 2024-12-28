@@ -36,23 +36,6 @@ public class MazeController extends JLayeredPane implements ActionListener {
 			}
 		}
 
-		// add bindings
-		// up binding
-		getInputMap(JLabel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
-		getActionMap().put("up", new UpPressed());
-
-		// right binding
-		getInputMap(JLabel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "right");
-		getActionMap().put("right", new RightPressed());
-
-		// down binding
-		getInputMap(JLabel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
-		getActionMap().put("down", new DownPressed());
-
-		// left binding
-		getInputMap(JLabel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "left");
-		getActionMap().put("left", new LeftPressed());
-
 		// ---- assign objects into layers ----
 		MazeLayer = new PaintLayer(mazeWindowSize());
 		// EnemyLayer = new PaintLayer(mazeWindowSize());
@@ -116,33 +99,5 @@ public class MazeController extends JLayeredPane implements ActionListener {
 
 	public boolean playerAtExit() {
 		return maze.getCell(player.getX(), player.getY()).isExit();
-	}
-
-	class UpPressed extends AbstractAction {
-		public void actionPerformed(ActionEvent e) {
-			if (maze.getCell(player.getX(), player.getY()).hasHall(0))
-				player.moveUp(maze.cellSize());
-		}
-	}
-
-	class RightPressed extends AbstractAction {
-		public void actionPerformed(ActionEvent e) {
-			if (maze.getCell(player.getX(), player.getY()).hasHall(1))
-				player.moveRight(maze.cellSize());
-		}
-	}
-
-	class DownPressed extends AbstractAction {
-		public void actionPerformed(ActionEvent e) {
-			if (maze.getCell(player.getX(), player.getY()).hasHall(2))
-				player.moveDown(maze.cellSize());
-		}
-	}
-
-	class LeftPressed extends AbstractAction {
-		public void actionPerformed(ActionEvent e) {
-			if (maze.getCell(player.getX(), player.getY()).hasHall(3))
-				player.moveLeft(maze.cellSize());
-		}
 	}
 }

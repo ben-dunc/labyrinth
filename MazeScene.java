@@ -1,36 +1,34 @@
 // Benjamin Duncan
-// GameWindow.java
+// MazeScene.java
 
 import java.awt.event.*;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.*;
 
-public class GameWindow extends JFrame implements ActionListener {
+public class MazeScene extends Scene {
 	private MazeController mazeController;
 	private Timer exitCheck;
 
-	public GameWindow(int diff, int size) {
+	public MazeScene(SceneManager sceneManager) {
+		super(sceneManager);
 
-		mazeController = new MazeController(diff, size);
-
-		super.setTitle("The Maze Game (" + size + " x " + size + ")");
-		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mazeController = new MazeController(1, 10);
 		super.setMinimumSize(new Dimension(mazeController.mazeWindowSize(), mazeController.mazeWindowSize() + 22));
 
 		super.add(mazeController);
 		super.setVisible(true);
 		super.setBackground(Color.black);
-
-		exitCheck = new Timer(100, this);
-		exitCheck.start();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (mazeController.playerAtExit()) {
-			this.dispose();
-			exitCheck.stop();
-			System.exit(0);
+			sceneManager.LoadScene(new MainMenuScene(sceneManager));
 		}
+	}
+
+	public void tick(int msTick) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'tick'");
 	}
 }

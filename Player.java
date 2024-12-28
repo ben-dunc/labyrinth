@@ -2,16 +2,16 @@
 // Player.java
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-import java.awt.Image;
 
-public class Player implements Drawable, ImageObserver {
-	private int x, y, cell_size, size;
+public class Player implements Drawable, ImageObserver, Tickable {
+	private int x, y, cellSize, playerSize;
 	private BufferedImage playerPic;
 
-	public Player(int xPos, int yPos, int sizenew, int cell_sizeN) {
+	public Player(int xPos, int yPos, int cellSize) {
 		try {
 			playerPic = ImageIO.read(new File("assets/Entities/MazePlayer.png"));
 		} catch (IOException e) {
@@ -20,35 +20,36 @@ public class Player implements Drawable, ImageObserver {
 
 		x = xPos;
 		y = yPos;
-		size = cell_sizeN / 3 + 1;
-		cell_size = cell_sizeN;
+		playerSize = cellSize / 3 + 1;
+		this.cellSize = cellSize;
+	}
+
+	@Override
+	public void tick(int msTick, InputManager input) {
+		checkMovement(input);
+	}
+
+	private void checkMovement(InputManager input) {
+		if (y - 1 >= 0 && input.getKeyOnPressed(KeyEvent.VK_UP))
+			y--;
+		if (x + 1 < 750 && input.getKeyOnPressed(KeyEvent.VK_RIGHT))
+			x++;
+		if (y + 1 < 750 && input.getKeyOnPressed(KeyEvent.VK_DOWN))
+			y++;
+		if (x - 1 >= 0 && input.getKeyOnPressed(KeyEvent.VK_LEFT))
+			x--;
 	}
 
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(Color.BLUE);
-		g2.drawImage(playerPic, x * cell_size + size, y * cell_size + size, size, size, this);
+		g2.drawImage(playerPic, x * cellSize + playerSize, y * cellSize + playerSize, playerSize, playerSize, this);
 	}
 
-	public void moveUp(int d) {
-		if (y - 1 >= 0)
-			y--;
-	}
-
-	public void moveRight(int d) {
-		if (x + 1 < 750)
-			x++;
-	}
-
-	public void moveDown(int d) {
-		if (y + 1 < 750)
-			y++;
-	}
-
-	public void moveLeft(int d) {
-		if (x - 1 >= 0)
-			x--;
+	@Override
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+		return false;
 	}
 
 	public int getX() {
@@ -57,10 +58,5 @@ public class Player implements Drawable, ImageObserver {
 
 	public int getY() {
 		return y;
-	}
-
-	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-		// do nothing. For I know not what I should do.
-		return false;
 	}
 }

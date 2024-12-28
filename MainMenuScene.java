@@ -4,7 +4,6 @@
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-import javax.swing.Timer;
 import java.awt.event.*;
 
 public class MainMenuScene extends Scene {
@@ -64,14 +63,6 @@ public class MainMenuScene extends Scene {
 		optionPanel.add(diffOption);
 		optionPanel.add(new JLabel(""));
 
-		// test
-		JLabel l1 = new JLabel("HELLO L1");
-		l1.setSize(100, 100);
-		JLabel l2 = new JLabel("HELLO L2");
-		l2.setSize(100, 100);
-		JLabel l3 = new JLabel("HELLO L3");
-		l3.setSize(100, 100);
-
 		// set up mainPanel
 		mainPanel = new JPanel(new BorderLayout());
 		mainPanel.setSize(500, 500);
@@ -94,10 +85,10 @@ public class MainMenuScene extends Scene {
 		return size;
 	}
 
-	public void tick(int tickRate) {
+	public void tick(int msTick, InputManager input) {
 		super.repaint();
 		if (mainGif != null)
-			mainGif.tick(tickRate);
+			mainGif.tick(msTick, input);
 	}
 
 	private class beginListener implements ActionListener {
@@ -116,7 +107,7 @@ public class MainMenuScene extends Scene {
 						diff = 3;
 				}
 
-				sceneManager.LoadScene(new MainMenuScene(sceneManager));
+				sceneManager.LoadScene(new MazeScene(sceneManager));
 			} catch (Exception ea) {
 				System.out.println("ERROR 23: " + ea);
 			}

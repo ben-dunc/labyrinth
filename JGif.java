@@ -19,7 +19,7 @@ public class JGif extends JLabel implements Tickable {
 	}
 
 	// on frame
-	public void tick(int msTick) {
+	public void tick(int msTick, InputManager input) {
 		if (frameIndex >= frames.size())
 			frameIndex = 0;
 		if (frames.size() > 0)

@@ -2,15 +2,18 @@
 // MazeApp.java
 
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
-import java.util.ArrayList;
 
-public class MazeApp extends JFrame implements ActionListener, Scene.SceneManager, KeyListener {
+public class MazeApp extends JFrame implements ActionListener, Scene.SceneManager, KeyListener, InputManager {
 
 	private int tickRate = 50;
 	private Timer tickTimer = new Timer(tickRate, this);
 	private Scene currentScene;
+
+	private ArrayList<Integer> onPressed = new ArrayList<Integer>();
+	private ArrayList<Integer> pressed = new ArrayList<Integer>();
 
 	public static void main(String[] args) {
 		new MazeApp();
@@ -25,14 +28,9 @@ public class MazeApp extends JFrame implements ActionListener, Scene.SceneManage
 
 		// init main menu
 		currentScene = new MainMenuScene(this);
-
 		super.add(currentScene);
 
-		// add bindings
-		// JComponent contentJComponent = ((JComponent) super.getContentPane());
-		// contentJComponent.getInputMap(JLabel.WHEN_IN_FOCUSED_WINDOW)
-		// .put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
-		// contentJComponent.getActionMap().put("up", new KeyPressedEvent("up"));
+		// add key listener
 		addKeyListener(this);
 
 		// tick!
@@ -41,58 +39,63 @@ public class MazeApp extends JFrame implements ActionListener, Scene.SceneManage
 	}
 
 	// tick!
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (currentScene != null)
-			currentScene.tick(tickRate);
+		tick();
 	}
 
+	private void tick() {
+		// tick!
+		if (currentScene != null)
+			currentScene.tick(tickRate, this);
+
+		if (getKeyOnPressed(KeyEvent.VK_RIGHT))
+			System.out.println("ON pressed right!");
+		if (getKeyPressed(KeyEvent.VK_RIGHT))
+			System.out.println("Pressed right!");
+
+		onPressed.clear();
+	}
+
+	@Override
 	public void LoadScene(Scene scene) {
 		if (currentScene != null) {
 			super.remove(currentScene);
 			System.out.println("Removed old scene!");
 		}
 		currentScene = scene;
+		super.add(currentScene);
+		super.repaint();
+		super.revalidate();
 		System.out.println("Loading new scene!");
 	}
 
-	// private void RegisterKeyPresedEvent(JComponent jComponent, String keycode) {
-
-	// }
-
-	// class KeyPressedEvent extends AbstractAction {
-	// private String keyCode = "";
-	// private boolean pressed = false;
-
-	// public KeyPressedEvent(String keyCode) {
-	// super();
-	// this.keyCode = keyCode;
-	// }
-
-	// public void actionPerformed(ActionEvent e) {
-
-	// }
-
-	// public String getKeyCode() {
-	// return keyCode;
-	// }
-
-	// public void isPressed() {
-
-	// }
-	// }
-
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("KeyTyped!");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("KeyPressed!");
+		int keyCode = e.getKeyCode();
+		onPressed.add(keyCode);
+		pressed.add(keyCode);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		System.out.println("KeyReleased!");
+		int keyCode = e.getKeyCode();
+		if (onPressed.contains(keyCode))
+			onPressed.remove(Integer.valueOf(keyCode));
+		pressed.remove(Integer.valueOf(keyCode));
+	}
+
+	@Override
+	public boolean getKeyOnPressed(int keycode) {
+		return onPressed.contains(keycode);
+	}
+
+	@Override
+	public boolean getKeyPressed(int keycode) {
+		return pressed.contains(keycode);
 	}
 }

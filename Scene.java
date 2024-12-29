@@ -3,7 +3,7 @@
 
 import javax.swing.*;
 
-public abstract class Scene extends JLayeredPane implements Tickable {
+public abstract class Scene extends JPanel implements Tickable {
     protected SceneManager sceneManager;
 
     public Scene(SceneManager sceneManager) {

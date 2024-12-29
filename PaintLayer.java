@@ -22,6 +22,7 @@ public class PaintLayer extends JComponent {
 		super.repaint();
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		if (list.size() != 0)
 			for (int i = 0; i < list.size(); i++)

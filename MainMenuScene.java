@@ -70,7 +70,7 @@ public class MainMenuScene extends Scene {
 		mainPanel.add(optionPanel, BorderLayout.CENTER);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-		super.add(mainPanel, JLayeredPane.DEFAULT_LAYER);
+		super.add(mainPanel);
 	}
 
 	public boolean close() {

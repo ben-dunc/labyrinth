@@ -2,26 +2,24 @@
 // Player.java
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
 public class Player implements Drawable, ImageObserver, Tickable {
-	private int x, y, cellSize, playerSize;
+	private int x, y, playerSize = 30;
+	private int moveSpeed = 10;
 	private BufferedImage playerPic;
 
-	public Player(int xPos, int yPos, int cellSize) {
+	public Player(int startX, int startY) {
 		try {
 			playerPic = ImageIO.read(new File("assets/Entities/MazePlayer.png"));
 		} catch (IOException e) {
 			System.out.println("assets/Entities/MazePlayer.png Read error");
 		}
 
-		x = xPos;
-		y = yPos;
-		playerSize = cellSize / 3 + 1;
-		this.cellSize = cellSize;
+		x = startX;
+		y = startY;
 	}
 
 	@Override
@@ -30,21 +28,21 @@ public class Player implements Drawable, ImageObserver, Tickable {
 	}
 
 	private void checkMovement(InputManager input) {
-		if (y - 1 >= 0 && input.getKeyOnPressed(KeyEvent.VK_UP))
-			y--;
-		if (x + 1 < 750 && input.getKeyOnPressed(KeyEvent.VK_RIGHT))
-			x++;
-		if (y + 1 < 750 && input.getKeyOnPressed(KeyEvent.VK_DOWN))
-			y++;
-		if (x - 1 >= 0 && input.getKeyOnPressed(KeyEvent.VK_LEFT))
-			x--;
+		if (input.getKeyPressed("UP"))
+			y -= moveSpeed;
+		if (input.getKeyPressed("RIGHT"))
+			x += moveSpeed;
+		if (input.getKeyPressed("DOWN"))
+			y += moveSpeed;
+		if (input.getKeyPressed("LEFT"))
+			x -= moveSpeed;
 	}
 
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(Color.BLUE);
-		g2.drawImage(playerPic, x * cellSize + playerSize, y * cellSize + playerSize, playerSize, playerSize, this);
+		g2.drawImage(playerPic, x, y, playerSize, playerSize, this);
 	}
 
 	@Override

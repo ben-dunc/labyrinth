@@ -2,6 +2,8 @@
 // MazeScene.java
 
 import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.*;
 
 public class MazeScene extends Scene {
@@ -15,13 +17,18 @@ public class MazeScene extends Scene {
 		super.setBackground(Color.black);
 		j.setSize(100, 100);
 
-		player = new Player(10, 10, 90);
+		player = new Player(10, 10);
 
-		super.add(j, JLayeredPane.DEFAULT_LAYER);
+		super.add(j);
 	}
 
 	public void tick(int msTick, InputManager input) {
 		player.tick(msTick, input);
-		player.draw(super.getGraphics());
+		super.repaint();
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		player.draw(g);
 	}
 }

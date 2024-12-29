@@ -15,7 +15,7 @@ public class MazeController extends JLayeredPane implements Tickable {
 	public MazeController(int diff, int size) {
 
 		maze = new Maze(size, difficulty);
-		player = new Player(0, 0, maze.cellSize());
+		player = new Player(0, 0);
 
 		// ---- assign objects into layers ----
 		MazeLayer = new PaintLayer(mazeWindowSize());
